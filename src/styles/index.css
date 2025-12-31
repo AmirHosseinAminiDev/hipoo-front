@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+}
+
+body {
+  @apply bg-dark text-gray-100 antialiased;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+.section-container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.card-surface {
+  @apply bg-[#0f172a] border border-white/5 rounded-2xl shadow-card;
+}
+
+.gradient-hero {
+  background: radial-gradient(circle at 20% 20%, rgba(239,68,68,0.25), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.12), transparent 35%),
+    linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #0b1220 100%);
+}
+
+.badge-pill {
+  @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-white/10 text-white border border-white/10;
+}
+
+input, textarea {
+  direction: rtl;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
