@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Flame, ShieldCheck, Sparkle } from 'lucide-react';
 import Button from '../ui/Button';
 
@@ -8,6 +8,33 @@ function Hero() {
     { label: 'کلاس در هفته', value: '۵۰+' },
     { label: 'مربی متخصص', value: '۱۸' },
   ];
+
+  const slides = useMemo(
+    () => [
+      {
+        src: 'https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?auto=format&fit=crop&w=1200&q=80',
+        alt: 'فضای تمرین مدرن با تجهیزات کامل',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80',
+        alt: 'کلاس گروهی پرانرژی',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1518611012118-1e5c696abed3?auto=format&fit=crop&w=1200&q=80',
+        alt: 'مربی اختصاصی در حال آموزش',
+      },
+    ],
+    []
+  );
+
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
   return (
     <section className="gradient-hero overflow-hidden rounded-3xl border border-white/10 shadow-card">
@@ -49,8 +76,45 @@ function Hero() {
 
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-white/5 blur-3xl" />
-          <div className="relative rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div className="grid grid-cols-2 gap-4 text-center">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur">
+            <div className="relative h-72 md:h-80">
+              {slides.map((slide, idx) => (
+                <div
+                  key={slide.src}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                    idx === activeSlide ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-hidden={idx !== activeSlide}
+                >
+                  <img
+                    src={slide.src}
+                    alt={slide.alt}
+                    className="h-full w-full object-cover"
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
+                </div>
+              ))}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-3">
+                <div className="flex gap-2">
+                  {slides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveSlide(idx)}
+                      className={`h-1 w-10 rounded-full transition-all duration-300 ${
+                        idx === activeSlide ? 'bg-primary' : 'bg-white/30'
+                      }`}
+                      aria-label={`نمایش اسلاید ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+                <div className="rounded-full bg-black/40 px-3 py-1 text-xs text-white backdrop-blur">
+                  {slides[activeSlide]?.alt}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 border-t border-white/10 p-6 text-center">
               {stats.map((stat) => (
                 <div key={stat.label} className="rounded-2xl bg-black/30 p-4">
                   <div className="text-3xl font-black text-primary">{stat.value}</div>
@@ -58,7 +122,7 @@ function Hero() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 space-y-3">
+            <div className="space-y-3 border-t border-white/10 p-6">
               <div className="flex items-center justify-between rounded-xl bg-black/40 px-4 py-3 text-sm text-gray">
                 <span>مربی خصوصی + برنامه غذایی</span>
                 <span className="text-primary font-bold">۳۵٪ تخفیف</span>

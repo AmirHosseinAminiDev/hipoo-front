@@ -1,5 +1,6 @@
 export const navLinks = [
   { name: 'خانه', path: '/' },
+  { name: 'گالری', path: '/gallery' },
   { name: 'خدمات', path: '/services' },
   { name: 'پلن‌ها', path: '/pricing' },
   { name: 'مربیان', path: '/trainers' },
