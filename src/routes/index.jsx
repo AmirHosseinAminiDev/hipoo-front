@@ -9,6 +9,7 @@ import TrainerDetail from '../pages/TrainerDetail';
 import Classes from '../pages/Classes';
 import About from '../pages/About';
 import Contact from '../pages/Contact';
+import Gallery from '../pages/Gallery';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'gallery', element: <Gallery /> },
       { path: 'services', element: <Services /> },
       { path: 'pricing', element: <Pricing /> },
       { path: 'trainers', element: <Trainers /> },
