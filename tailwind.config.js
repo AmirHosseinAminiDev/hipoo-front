@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
@@ -7,7 +9,10 @@ export default {
       colors: {
         primary: '#ef4444',
         dark: '#0b1220',
-        gray: '#94a3b8',
+        gray: {
+          DEFAULT: '#94a3b8',
+          ...colors.slate,
+        },
       },
       fontFamily: {
         sans: ['"Vazirmatn"', 'system-ui', 'sans-serif'],
